@@ -2,38 +2,31 @@
 set -e
 
 AWS_REGION="ap-northeast-2"
-ECR_REPOSITORY="std04/nginx"
-CONTAINER_NAME="nginx-app"
+COMPOSE_DIR="/home/ec2-user/app/compose"
 
-# 1. AWS 계정 ID 조회 및 전체 이미지 URI 구성
+echo "=== 1. ECR 로그인 ==="
 ACCOUNT_ID=$(aws sts get-caller-identity --query "Account" --output text)
 REGISTRY_URL="${ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com"
-IMAGE_URI="${REGISTRY_URL}/${ECR_REPOSITORY}:latest"
-
-echo "=== 배포 대상 이미지: ${IMAGE_URI} ==="
-
-# 2. ECR 로그인
-echo "=== ECR 로그인 시도 ==="
 aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${REGISTRY_URL}
 
-# 3. Docker 이미지 Pull
-echo "=== 최신 이미지 Pull ==="
-docker pull ${IMAGE_URI}
+echo "=== 2. Nginx 마운트 디렉터리 준비 ==="
+mkdir -p /home/ec2-user/nginx/conf.d
+mkdir -p /home/ec2-user/nginx/html
+mkdir -p /home/ec2-user/nginx/logs
 
-# 4. 기존 컨테이너 정리 및 신규 배포
-echo "=== 기존 컨테이너 정리 ==="
-docker stop ${CONTAINER_NAME} 2>/dev/null || true
-docker rm ${CONTAINER_NAME} 2>/dev/null || true
+# 압축 해제된 설정 파일들을 호스트 마운트 위치로 복사
+cp /home/ec2-user/app/build/nginx/default.conf /home/ec2-user/nginx/conf.d/default.conf
+cp -r /home/ec2-user/app/build/nginx/html/* /home/ec2-user/nginx/html/
 
-echo "=== 신규 컨테이너 가동 ==="
-docker run -d \
-  --name ${CONTAINER_NAME} \
-  -p 80:80 \
-  --restart always \
-  ${IMAGE_URI}
+echo "=== 3. Docker Compose 배포 실행 ==="
+cd ${COMPOSE_DIR}
 
-# 5. 미사용 댕글링(Dangling) 이미지 정리
-echo "=== 미사용 이미지 정리 ==="
+# 최신 이미지 Pull 후 백그라운드 재기동
+docker compose pull
+docker compose down || true
+docker compose up -d
+
+echo "=== 4. 미사용 이미지 정리 ==="
 docker image prune -f
 
 echo "=== 배포 완료 ==="
