@@ -74,3 +74,6 @@ Thumbs.db
 *.swp
 *.swo
 *~
+# terraform 
+/infra
+
