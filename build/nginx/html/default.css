@@ -1,0 +1,234 @@
+/* ========================================================
+   [Art Piece Style] Neo-Classic & Pop-Art Fusion 
+   ======================================================== */
+
+:root {
+    --gold: #d4af37;
+    --gold-dark: #aa8623;
+    --bg-dark: #121212;
+    --canvas-dark: #1e1e1e;
+    --burgundy: #800020;
+    --text-light: #fdfbf7;
+    --text-muted: #b3ad99;
+}
+
+body {
+    background-color: var(--bg-dark);
+    background-image: radial-gradient(circle at 50% 0%, #2a2a2a 0%, #121212 70%);
+    font-family: 'Noto Serif KR', 'Cinzel', serif;
+    color: var(--text-light);
+    margin: 0;
+    padding: 0;
+}
+
+ul, ol, dl, li, dt, dd { list-style: none; padding: 0; margin: 0; }
+a:hover { color: var(--gold); text-shadow: 0 0 5px rgba(212, 175, 55, 0.5); }
+html * { box-sizing: border-box; }
+
+/* 캔버스 래퍼 (The Frame) */
+#container {
+    width: 90%;
+    max-width: 1100px;
+    min-width: 600px;
+    padding: 40px 20px;
+    margin: auto;
+}
+
+h1 {
+    font-family: 'Cinzel', serif;
+    color: var(--gold);
+    font-size: 2rem;
+    text-align: center;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 0px #000;
+    border-bottom: 1px solid var(--gold-dark);
+    padding-bottom: 20px;
+    position: relative;
+    background: none;
+    border: none;
+}
+
+h1::after {
+    content: "✦";
+    position: absolute;
+    bottom: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--gold);
+    font-size: 1.2rem;
+    background: var(--bg-dark);
+    padding: 0 15px;
+}
+
+/* 폼 영역 (The Canvas) */
+#container > div#loginBox {
+    background-color: var(--canvas-dark);
+    border: 2px solid var(--gold-dark);
+    /* 팝아트적 하드 섀도우 믹스 */
+    box-shadow: 12px 12px 0px var(--burgundy), 14px 14px 0px var(--gold);
+    border-radius: 0;
+    padding: 40px 50px;
+    margin-top: 20px;
+}
+
+form > div { margin-bottom: 25px; }
+
+/* 입력 폼 라인 (Antique Lines) */
+.uline {
+    border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+    padding-bottom: 5px;
+    transition: border-color 0.3s ease;
+}
+.uline:hover {
+    border-bottom: 1px solid var(--gold);
+}
+
+.fl { float: left; width: 140px; }
+.fl label {
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 1px;
+    font-size: 0.95rem;
+}
+.cl:after { content: ""; display: block; clear: both; }
+
+/* Input & Select (Modern Minimalist in Antique Frame) */
+input, select {
+    background-color: transparent;
+    color: var(--text-light);
+    border: none;
+    padding: 8px 10px;
+    font-family: 'Noto Serif KR', serif;
+    font-size: 1rem;
+    outline: none;
+}
+select { min-width: 220px; cursor: pointer; }
+select option { background-color: var(--canvas-dark); color: var(--text-light); }
+input[type=number] { width: 120px; text-align: right; font-family: 'Cinzel', serif; font-size: 1.1rem;}
+
+/* 버튼 (Art Deco / Neobrutalism) */
+.action-buttons {
+    text-align: center;
+    margin-top: 45px !important;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.art-btn {
+    display: inline-block;
+    padding: 10px 25px;
+    background-color: transparent;
+    color: var(--text-light);
+    border: 1px solid var(--text-muted);
+    font-family: 'Noto Serif KR', serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow: 4px 4px 0px rgba(255,255,255,0.1);
+    height: auto;
+    width: auto;
+}
+
+.art-btn:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0px rgba(255,255,255,0.2);
+}
+
+.art-btn:active {
+    transform: translate(2px, 2px);
+    box-shadow: 0px 0px 0px transparent;
+}
+
+.art-btn.primary {
+    background-color: var(--gold);
+    color: #000;
+    border-color: var(--gold);
+    box-shadow: 4px 4px 0px var(--gold-dark);
+}
+.art-btn.primary:hover { box-shadow: 6px 6px 0px var(--gold-dark); }
+
+.art-btn.danger {
+    border-color: var(--burgundy);
+    color: #ff8a8a;
+}
+.art-btn.danger:hover {
+    background-color: var(--burgundy);
+    color: #fff;
+    box-shadow: 6px 6px 0px #4a0012;
+}
+
+#btnReload {
+    background-color: rgba(212, 175, 55, 0.1);
+    color: var(--gold);
+    border: 1px solid var(--gold);
+    padding: 5px 15px;
+    margin-left: 10px;
+}
+#btnReload:hover:not(:disabled) { background-color: var(--gold); color: #000; }
+#btnReload:disabled { opacity: 0.5; cursor: not-allowed; border-color: #555; color: #555;}
+
+/* 테이블 (The Ledger) */
+.viewArea {
+    margin-top: 50px;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+th {
+    border-bottom: 2px solid var(--gold-dark);
+    padding: 15px 10px;
+    color: var(--gold);
+    font-weight: 700;
+    letter-spacing: 2px;
+    background-color: rgba(255, 255, 255, 0.03);
+    text-transform: uppercase;
+}
+
+td {
+    text-align: center;
+    padding: 12px 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    font-size: 0.95rem;
+    transition: background-color 0.2s ease;
+}
+
+tbody tr:hover td {
+    background-color: rgba(212, 175, 55, 0.05);
+}
+
+/* 체크박스 커스텀 힌트 */
+input[type="checkbox"] {
+    accent-color: var(--gold-dark);
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+/* Delete 링크 */
+td a.mp {
+    color: #ff5555 !important;
+    text-decoration: none;
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding: 4px 10px;
+    border: 1px solid transparent;
+    transition: all 0.3s ease;
+}
+
+td a.mp:hover {
+    border: 1px solid #ff5555;
+    background-color: rgba(255, 85, 85, 0.1);
+    text-shadow: none;
+}

@@ -1,0 +1,32 @@
+# file name: dockerignore
+# --- Version Control ---
+.git
+.gitignore
+
+# --- OS Specific Files ---
+.DS_Store
+Thumbs.db
+
+# --- Python / FastAPI (Backend) ---
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+.env
+
+# --- Docker & CI/CD ---
+Dockerfile
+docker-compose.yml
+.dockerignore
+.github/
+
+# --- Temporary & Log Files ---
+*.log
+tmp/
+.temp/
+
+# --- IDE Settings ---
+.vscode/
+.idea/
